@@ -102,7 +102,7 @@ function save(getArgs, filepath, text, callback) {
   }, callback);
 }
 
-function stream(getArgs, text) {
+function stream(text) {
   var text_parts = tokenize(text);
   var total = text_parts.length;
 
