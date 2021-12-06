@@ -44,19 +44,11 @@ router.get('/tomp3', async(req, res) => {
     await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
 	await res.sendFile(__path + '/tmp/audio.mp3')
 })
-router.get('/tomp3', async(req, res) => {
-    var url = req.query.url 
-    const Buffer = await fetch(url)
-	  const getBuffer = await Buffer.buffer()
-    let audio = await toAudio(getBuffer, 'mp4')
-    await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
-	await res.sendFile(__path + '/tmp/audio.mp3')
-})
 router.get('/speech', async(req, res) => {
     var text = req.query.text
     const Buffer = await fetch(text)
 	  const getBuffer = await Buffer.buffer()
-    let audio = await stream(getBuffer, 'mp4')
+    let audio = await gtts.stream(getBuffer, 'mp4')
     await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
 	await res.sendFile(__path + '/tmp/audio.mp3')
 })
