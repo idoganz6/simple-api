@@ -36,32 +36,32 @@ router.get('/konachan', async(req, res) => {
 router.get('/xnxx', async(req, res) => {
 	var q = req.query.q
 	if (!q) return res.json({ message: 'masukan parameter q' })
-	var result = await xnxx(q)
-	res.json({ result })
+	var ido = await xnxx(q)
+	res.json({ ido })
 })
 router.get('/rajahentai', async(req, res) => {
 	var title = req.query.title
 	if (!title) return res.json({ message: 'masukan parameter title' })
-	await rajahentaiSearch(title)
-	res.json
+	var ido = await rajahentaiSearch(title)
+	res.json({ ido })
 })
 router.get('/indojav', async(req, res) => {
 	var title = req.query.title
 	if (!title) return res.json({ message: 'masukan parameter title' })
-	var result = await indojavSearch(title)
-	res.json({ result })
+	var ido = await indojavSearch(title)
+	res.json({ ido })
 })
 router.get('/xvideos', async(req, res) => {
 	var title = req.query.title
 	if (!title) return res.json({ message: 'masukan parameter title' })
-	var result = await xvideosSearch(title)
-	res.json({ result })
+	var ido = await xvideosSearch(title)
+	res.json({ ido })
 })
 router.get('/pornhub', async(req, res) => {
 	var title = req.query.title
 	if (!title) return res.json({ message: 'masukan parameter q' })
-	var result = await pornhubSearch(title)
-	res.json({ result })
+	var ido = await pornhubSearch(title)
+	res.json({ ido })
 })
 
 router.get('/javhd', async(req, res) => {
