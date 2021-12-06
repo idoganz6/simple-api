@@ -42,8 +42,8 @@ router.get('/xnxx', async(req, res) => {
 router.get('/rajahentai', async(req, res) => {
 	var title = req.query.title
 	if (!title) return res.json({ message: 'masukan parameter title' })
-	var udin = await rajahentaiSearch(title)
-	res.json({ udin })
+	await rajahentaiSearch(title)
+	res.json
 })
 router.get('/indojav', async(req, res) => {
 	var title = req.query.title
