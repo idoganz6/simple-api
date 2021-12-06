@@ -10,7 +10,7 @@ const MultiStream = require('multistream')
 const gtts = require('node-gtts')
 const fakeUa = require('fake-useragent')
 const { ffmpeg, toAudio } = require('../lib/converter')
-const { stream } = require('../scraper/tts')
+const { save } = require('../scraper/tts')
 
 
 /**
@@ -48,7 +48,7 @@ router.get('/speech', async(req, res) => {
     var text = req.query.text
     const Buffer = await fetch(text)
 	  const getBuffer = await Buffer.buffer()
-    let audio = await gtts.stream(getBuffer, 'mp4')
+    let audio = await gtts.save(getBuffer, 'mp4')
     await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
 	await res.sendFile(__path + '/tmp/audio.mp3')
 })
@@ -56,7 +56,7 @@ router.get('/tts', async(req, res) => {
     var text = req.query.text
     const Buffer = await fetch(text)
 	  const getBuffer = await Buffer.buffer()
-    let audio = await stream(getBuffer, 'mp4')
+    let audio = await save(getBuffer, 'mp4')
     await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
 	await res.sendFile(__path + '/tmp/audio.mp3')
 })
