@@ -7,7 +7,7 @@ const { getBuffer } = require('../lib/function')
 //scraper
 const { pinterest, randomTiktok, konachan } = require('../scraper/index') 
 const { stickerSearch } = require('../scraper/stickerpack')
-const { xnxx, javhd } = require('../scraper/scraper')
+const { xnxx } = require('../scraper/scraper')
 
 router.get('/google', async(req, res) => {
 	var query = req.query.query
@@ -36,12 +36,6 @@ router.get('/xnxx', async(req, res) => {
 	var q = req.query.q
 	if (!q) return res.json({ message: 'masukan parameter q' })
 	var result = await xnxx(q)
-	res.json({ result })
-})
-router.get('/javhd', async(req, res) => {
-	var q = req.query.q
-	if (!q) return res.json({ message: 'masukan parameter q' })
-	var result = await javhd(q)
 	res.json({ result })
 })
 router.get('/tiktok', async(req, res) => {
