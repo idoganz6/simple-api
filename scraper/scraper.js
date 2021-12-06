@@ -120,56 +120,7 @@ function wikimedia(title) {
     })
 }
 
-function javhd(q) {
-	return new Promise(async (resolve, reject) => {
-		await axios.get(`https://javhdd.net/search/${q}`, {
-			headers: {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
-			}
-		}).then(respon => {
-			const $ = cheerio.load(respon.data)
-			const hasil = []
-			$('#content-thumbs > div.mozaique.cust-nb-cols').each(function (tyu, zu) {
-				$(zu).find('div').each(function (chu, rani) {
-					const Url = $(rani).find('div.thumb-inside > div > a').attr('href') || undefined
-					const thumb = $(rani).find('div.thumb-inside > div > a > img').attr('data-src') || undefined
-					const judul = $(rani).find('div.thumb-under > p:nth-child(1) > a').text().trim() || undefined
-					const View = $(rani).find('div.thumb-under > p.metadata > span.right > span.superfluous').text().trim() || undefined
-					const Info = $(rani).find('div.thumb-under > p.metadata').text().trim() || undefined
-					const result = {
-						url: Url,
-						judul: judul,
-						thumb: thumb,
-						view: View,
-						info: Info
-					}
-					hasil.push(result)
-				})
-			})
-			const hasil2 = []
-			hasil.map(ido => {
-				if (ido.url === undefined) return 
-				if (ido.judul === undefined) return 
-				if (ido.thumb === undefined) return
-				if (ido.view === undefined) return
-				if (ido.info === undefined) return
-				const Format = {
-					judul: ido.judul,
-					url: 'https://javhdd.net' + ido.url,
-					thumb: ido.thumb,
-					viewers: ido.view,
-					info: ido.info
-				}
-				hasil2.push(Format)
-			})
-			const data = {
-				status: respon.status,
-				result: hasil2
-			}
-			resolve(data)
-		}).catch(reject)
-	})
-}
+
 
 function porno() {
     return new Promise((resolve, reject) => {
@@ -215,6 +166,48 @@ function hentai() {
             resolve(hasil)
         })
     })
+}
+function javhd(q) {
+	return new Promise(async (resolve, reject) => {
+		await axios.get(`https://javhdd.net/search/${q}`, {
+			headers: {
+				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
+			}
+		}).then(respon => {
+			const $ = cheerio.load(respon.data)
+			const hasil = []
+			$('#content-thumbs > div.mozaique.cust-nb-cols').each(function (tyu, zu) {
+				$(zu).find('div').each(function (chu, rani) {
+					const Url = $(rani).find('div.thumb-inside > div > a').attr('href') || undefined
+					const thumb = $(rani).find('div.thumb-inside > div > a > img').attr('data-src') || undefined
+					const judul = $(rani).find('div.thumb-under > p:nth-child(1) > a').text().trim() || undefined				
+					const result = {
+						url: Url,
+						judul: judul,
+						thumb: thumb,						
+					}
+					hasil.push(result)
+				})
+			})
+			const hasil2 = []
+			hasil.map(ido => {
+				if (ido.url === undefined) return 
+				if (ido.judul === undefined) return 
+				if (ido.thumb === undefined) return					
+				const Format = {
+					judul: ido.judul,
+					url: 'https://javhdd.net' + ido.url,
+					thumb: ido.thumb,				
+				}
+				hasil2.push(Format)
+			})
+			const data = {
+				status: respon.status,
+				result: hasil2
+			}
+			resolve(data)
+		}).catch(reject)
+	})
 }
 
 function quotesAnime() {
