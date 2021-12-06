@@ -28,6 +28,10 @@ router.get('/attp', async(req, res) => {
     await res.sendFile(__path +'/tmp/attp.png')
 })
 
+router.get('/pornoo', async(req, res) => {
+ const result = await porno()
+ res.json({ result })
+})
 
 router.get('/removebg', async(req, res) => {
   var link = req.query.link
