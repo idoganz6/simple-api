@@ -47,8 +47,8 @@ router.get('/tomp3', async(req, res) => {
 router.get('/tts', async(req, res) => {
     var text = req.query.text
     if (!text) return res.json({ message: 'masukan parameter text' })
-    var lang = req.query.lang 
-    const Buffer = await fetch(lang)
+    var _lang = req.query._lang
+    const Buffer = await fetch(_lang)
 	  const getBuffer = await Buffer.buffer()
     let audio = await Text2Speech(getBuffer, 'mp4')
     await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
