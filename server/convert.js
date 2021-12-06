@@ -44,6 +44,19 @@ router.get('/tomp3', async(req, res) => {
     await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
 	await res.sendFile(__path + '/tmp/audio.mp3')
 })
+router.get('/gtts', async(req, res) => {
+	var _lang = req.query._lang
+	if (!_lang) return res.json({ message: 'masukan parameter _lang' })
+	var hasil = await Text2Speech(_lang)
+	try {
+		var data = await getBuffer(hasil.audio)
+		await fs.writeFileSync(__path +'/tmp/tiktok.mp4', data)
+   		await res.sendFile(__path +'/tmp/tiktok.mp4')
+	} catch(err) {
+		console.log(err)
+		res.json({ message: 'Ups, error' })
+	}
+})
 router.get('/tts', async(req, res) => {
     var text = req.query.text
     if (!text) return res.json({ message: 'masukan parameter text' })
