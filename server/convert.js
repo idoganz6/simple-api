@@ -8,6 +8,7 @@ const escapeStringRegexp = require('escape-string-regexp');
 const async = require('async')
 const MultiStream = require('multistream')
 const gTTS = require("gtts.js")
+const tts = new gTTS() 
 const fakeUa = require('fake-useragent')
 const { ffmpeg, toAudio } = require('../lib/converter')
 const { Text2Speech } = require('../scraper/tts')
@@ -45,13 +46,13 @@ router.get('/tomp3', async(req, res) => {
 	await res.sendFile(__path + '/tmp/audio.mp3')
 })
 router.get('/gtts', async(req, res) => {
-	var text.lang = req.query.text.lang
-	if (!text.lang) return res.json({ message: 'masukan parameter _lang' })
-	var hasil = await gTTS.save(text.lang)
+	var text = req.query.text
+	if (!text) return res.json({ message: 'masukan parameter text' })
+	var hasil = await tts.save(text)
 	try {
 		var data = await getBuffer(hasil.audio)
-		await fs.writeFileSync(__path +'/tmp/tiktok.mp4', data)
-   		await res.sendFile(__path +'/tmp/tiktok.mp4')
+		await fs.writeFileSync(__path +'/tmp/tiktok.mp3', data)
+   		await res.sendFile(__path +'/tmp/tiktok.mp3')
 	} catch(err) {
 		console.log(err)
 		res.json({ message: 'Ups, error' })
