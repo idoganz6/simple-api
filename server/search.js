@@ -7,7 +7,7 @@ const { getBuffer } = require('../lib/function')
 //scraper
 const { pinterest, randomTiktok, konachan } = require('../scraper/index') 
 const { stickerSearch } = require('../scraper/stickerpack')
-const { xnxx } = require('../scraper/konachan')
+const { xnxx } = require('../scraper/scraper')
 
 router.get('/google', async(req, res) => {
 	var query = req.query.query
