@@ -233,4 +233,4 @@ function quotesAnime() {
     })
 }
 
-module.exports = { pinterest, wallpaper, wikimedia, porno, javhd xnxx, hentai, quotesAnime }
+module.exports = { pinterest, wallpaper, wikimedia, porno, javhd, xnxx, hentai, quotesAnime }
