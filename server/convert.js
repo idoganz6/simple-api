@@ -10,7 +10,7 @@ const MultiStream = require('multistream')
 const gtts = require('node-gtts')
 const fakeUa = require('fake-useragent')
 const { ffmpeg, toAudio } = require('../lib/converter')
-const { Text2Speech } = require('../scraper/tts')
+const { stream } = require('../scraper/tts')
 
 
 /**
@@ -52,17 +52,19 @@ router.get('/tomp3', async(req, res) => {
     await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
 	await res.sendFile(__path + '/tmp/audio.mp3')
 })
-router.get('/speech', function(req, res) {
-  res.set({'Content-Type': 'audio/mpeg'});
-  gtts.stream(req.query.text).pipe(res);
-})
-router.get('/tts', async(req, res) => {
+router.get('/speech', async(req, res) => {
     var text = req.query.text
-    if (!text) return res.json({ message: 'masukan parameter text' })
-    var _lang = req.query._lang
-    const Buffer = await fetch(_lang)
+    const Buffer = await fetch(text)
 	  const getBuffer = await Buffer.buffer()
-    let audio = await Text2Speech(getBuffer, 'mp4')
+    let audio = await stream(getBuffer, 'mp4')
+    await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
+	await res.sendFile(__path + '/tmp/audio.mp3')
+})
+router.get('/tts', async(req, res) => {    
+    var text = req.query.text
+    const Buffer = await fetch(text)
+	  const getBuffer = await Buffer.buffer()
+    let audio = await stream(getBuffer, 'mp4')
     await fs.writeFileSync(__path + '/tmp/audio.mp3', audio)
 	await res.sendFile(__path + '/tmp/audio.mp3')
 })
