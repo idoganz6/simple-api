@@ -1,6 +1,7 @@
 const express = require('express')
 var router = express.Router();
 const { getBuffer } = require('../lib/function')
+const { porno } = require('../scraper/scraper')
 const fs = require('fs')
 __path = process.cwd()
 
