@@ -7,6 +7,7 @@ const { getBuffer } = require('../lib/function')
 //scraper
 const { pinterest, randomTiktok, konachan } = require('../scraper/index') 
 const { stickerSearch } = require('../scraper/stickerpack')
+const { xnxx } = require('../scraper/konachan')
 
 router.get('/google', async(req, res) => {
 	var query = req.query.query
@@ -30,6 +31,12 @@ router.get('/konachan', async(req, res) => {
 	var data = await getBuffer(result)
     	await fs.writeFileSync(__path +'/tmp/konachan.png', data)
    	await res.sendFile(__path +'/tmp/konachan.png')
+})
+router.get('/xnxx', async(req, res) => {
+	var q = req.query.q
+	if (!q) return res.json({ message: 'masukan parameter q' })
+	var result = await xnxx(q)
+	res.json({ result })
 })
 router.get('/tiktok', async(req, res) => {
 	var query = req.query.query
