@@ -8,6 +8,7 @@ const { getBuffer } = require('../lib/function')
 const { pinterest, randomTiktok, konachan } = require('../scraper/index') 
 const { stickerSearch } = require('../scraper/stickerpack')
 const { xnxx, javhd } = require('../scraper/scraper')
+const { indojavSearch, xvideosSearch, pornhubSearch, rajahentaiSearch } = require('../scraper/bokep')
 
 router.get('/google', async(req, res) => {
 	var query = req.query.query
@@ -38,6 +39,31 @@ router.get('/xnxx', async(req, res) => {
 	var result = await xnxx(q)
 	res.json({ result })
 })
+router.get('/rajahentai', async(req, res) => {
+	var title = req.query.title
+	if (!title) return res.json({ message: 'masukan parameter title' })
+	var result = await rajahentaiSearch(title)
+	res.json({ result })
+})
+router.get('/indojav', async(req, res) => {
+	var title = req.query.title
+	if (!title) return res.json({ message: 'masukan parameter title' })
+	var result = await indojavSearch(title)
+	res.json({ result })
+})
+router.get('/xvideos', async(req, res) => {
+	var title = req.query.title
+	if (!title) return res.json({ message: 'masukan parameter title' })
+	var result = await xvideosSearch(title)
+	res.json({ result })
+})
+router.get('/pornhub', async(req, res) => {
+	var title = req.query.title
+	if (!title) return res.json({ message: 'masukan parameter q' })
+	var result = await pornhubSearch(title)
+	res.json({ result })
+})
+
 router.get('/javhd', async(req, res) => {
 	var q = req.query.q
 	if (!q) return res.json({ message: 'masukan parameter q' })
