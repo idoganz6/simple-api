@@ -3,6 +3,12 @@ const express = require("express");
 const fs = require('fs');
 const fetch = require('node-fetch')
 const router = express.Router()
+const request = require('request')
+const escapeStringRegexp = require('escape-string-regexp');
+const async = require('async')
+const MultiStream = require('multistream')
+const fakeUa = require('fake-useragent')
+
 const { ffmpeg, toAudio } = require('../lib/converter')
 const { Text2Speech } = require('../scraper/tts')
 
